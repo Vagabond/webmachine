@@ -4,6 +4,7 @@
   {modules, [
     webmachine,
     webmachine_app,
+    webmachine_cowboy,
     webmachine_decision_core,
     webmachine_deps,
     webmachine_dispatcher,

@@ -94,7 +94,9 @@ get_webserver_mod() ->
         "mochiweb" ->
             webmachine_mochiweb;
         "yaws" ->
-            webmachine_yaws
+            webmachine_yaws;
+        "cowboy" ->
+            webmachine_cowboy
     end.
 
 host_headers(Req) ->

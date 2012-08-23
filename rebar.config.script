@@ -2,6 +2,7 @@
 %% ex: ft=erlang ts=4 sw=4 et
 
 YawsDep = {yaws, "1.*", {git, "git://github.com/klacke/yaws", {branch, "master"}}}.
+CowboyDep = {cowboy, "0.6.1", {git, "git://github.com/extend/cowboy", {tag, "0.6.1"}}}.
 
 case os:getenv("WEBMACHINE_SERVER") of
     false ->
@@ -15,5 +16,12 @@ case os:getenv("WEBMACHINE_SERVER") of
         NConfig = lists:keystore(deps, 1, CONFIG, {deps, NDeps}),
         {value, {erl_opts, Opts}} = lists:keysearch(erl_opts, 1, NConfig),
         Define = [{d, 'WEBMACHINE_YAWS'}],
+        lists:keystore(erl_opts, 1, NConfig, {erl_opts, Opts ++ Define});
+    "cowboy" ->
+        {value, {deps, Deps}} = lists:keysearch(deps, 1, CONFIG),
+        NDeps = lists:keystore(cowboy, 1, Deps, CowboyDep),
+        NConfig = lists:keystore(deps, 1, CONFIG, {deps, NDeps}),
+        {value, {erl_opts, Opts}} = lists:keysearch(erl_opts, 1, NConfig),
+        Define = [{d, 'WEBMACHINE_COWBOY'}],
         lists:keystore(erl_opts, 1, NConfig, {erl_opts, Opts ++ Define})
 end.
